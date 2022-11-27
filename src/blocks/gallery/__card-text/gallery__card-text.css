@@ -1,0 +1,6 @@
+.gallery__card-text {
+  display: flex;
+  justify-content: space-between;
+  min-height: 23px;
+  padding-top: 25px;
+}

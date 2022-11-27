@@ -1,0 +1,11 @@
+.gallery__card {
+  max-width: 282px;
+  border-radius: 9px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 361px;
+  position: relative;
+  z-index: 8;
+}

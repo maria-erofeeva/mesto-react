@@ -19,13 +19,12 @@ function Main(props) {
         setUserDescription(userProfileResponse.about);
         setUserAvatar(userProfileResponse.avatar);
         setCards(initialCardsResponse);
-        console.log(cards)
       })
 
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <main className="main">
@@ -64,7 +63,8 @@ function Main(props) {
       <section className="gallery" aria-label="outCards">
         {cards.map((card) => (
           <Card
-          key={card.id} {...card}
+          key={card.id}
+          card={card}
           onDeletePopup={props.onDeletePopup}
           onCardClick={props.onCardClick}
           />

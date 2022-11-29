@@ -1,10 +1,10 @@
 import React from "react";
 
-function Card(card) {
+function Card({ card, onCardClick, onDeletePopup }) {
 
   return (
     <div className="gallery__card">
-      <img src={card.link} className="gallery__image" alt={card.name} onClick={card.onCardClick} />
+      <img src={card.link} className="gallery__image" alt={card.name} onClick={() => onCardClick(card) } />
       <button
         className="gallery__delete-button"
         type="button"
@@ -19,7 +19,7 @@ function Card(card) {
             id="gallery-like-button"
             type="button"
             aria-label="Like"
-            onClick={''}
+            onClick={() => {}}
           ></button>
           <span
             className="gallery__like-button-counter"

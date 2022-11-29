@@ -1,12 +1,11 @@
 import React from "react";
 
-function ImagePopup(card) {
-  console.log(card)
+function ImagePopup({ card, onClose }) {
   return (
     <>
       <div
         className={`popup popup_type_image ${
-          card.isOpen ? "popup_opened" : ""
+          card ? "popup_opened" : ""
         }`}
         id={`popup-open-image`}
       >
@@ -18,7 +17,7 @@ function ImagePopup(card) {
             id="popup-open-image-close-button"
             type="button"
             aria-label="Close"
-            onClick={card.onClose}
+            onClick={onClose}
           ></button>
         </div>
       </div>

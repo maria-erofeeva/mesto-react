@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { api } from "../utils/api.js";
 import Card from "./Card.js";
+import ImagePopup from "./ImagePopup.js";
 
 function Main(props) {
   const [userName, setUserName] = React.useState("Жак-Ив Кусто");
@@ -12,22 +13,19 @@ function Main(props) {
 
   React.useEffect(() => {
     const promises = [api.getUserInformation(), api.createCardsList()];
-    console.log(promises)
-    console.log(api.getUserInformation())
     Promise.all(promises)
       .then(([userProfileResponse, initialCardsResponse]) => {
         setUserName(userProfileResponse.name);
         setUserDescription(userProfileResponse.about);
         setUserAvatar(userProfileResponse.avatar);
         setCards(initialCardsResponse);
+        console.log(cards)
       })
 
       .catch((error) => {
         console.log(error);
       });
   });
-
-  console.log({ userAvatar });
 
   return (
     <main className="main">
@@ -64,15 +62,14 @@ function Main(props) {
       </section>
 
       <section className="gallery" aria-label="outCards">
-          {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              onCardClick={props.onCardClick}
-              onDeleteClick={props.onDeleteClick}
-            />
-          ))}
-        </section>
+        {cards.map((card) => (
+          <Card
+          key={card.id} {...card}
+          onDeletePopup={props.onDeletePopup}
+          onCardClick={props.onCardClick}
+          />
+        ))}
+      </section>
     </main>
   );
 }

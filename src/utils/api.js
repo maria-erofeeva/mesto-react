@@ -1,7 +1,7 @@
 class Api {
   constructor(config) {
     this._baseUrl = config.baseUrl;
-    this._header = config.headers;
+    this._headers = config.headers;
   }
 
   /*проверка ответа*/

@@ -1,42 +1,30 @@
 import React from "react";
 
-function Card(props) {
-  function handleClick() {
-    props.onCardClick(props.cardData);
-  }
-
-  function onLikeClick() {
-    props.onCardLike(props.cardData);
-  }
-
-  function onDeleteClick() {
-    props.onCardDelete(props.cardData);
-  }
+function Card(card) {
 
   return (
     <div className="gallery__card">
-      <img src={props.link} className="gallery__image" alt={props.name} onClick={handleClick} />
+      <img src={card.link} className="gallery__image" alt={card.name} onClick={card.onCardClick} />
       <button
         className="gallery__delete-button"
         type="button"
         aria-label="Delete"
-        onClick={onDeleteClick}
+        onClick={card.onDeletePopup}
       ></button>
       <div className="gallery__card-text">
-        <h2 className="gallery__card-title">{props.name}</h2>
+        <h2 className="gallery__card-title">{card.name}</h2>
         <div className="gallery__like-button-container">
           <button
             className="gallery__like-button"
             id="gallery-like-button"
             type="button"
             aria-label="Like"
-            onClick={onLikeClick}
+            onClick={''}
           ></button>
           <span
             className="gallery__like-button-counter"
             id="gallery-like-button-counter"
           >
-            {props.likes.length}
           </span>
         </div>
       </div>

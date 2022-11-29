@@ -4,6 +4,8 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
+import Card from "./Card.js";
+import { api } from '../utils/api.js'
 
 function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupIsOpen] = React.useState(false);
@@ -12,6 +14,8 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupIsOpen] =
     React.useState(false);
   const [isDeleteCardOpen, setIsDeleteCardOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(false);
+  
 
   function handleAddPlaceClick() {
     setAddPlacePopupIsOpen(true);
@@ -25,14 +29,20 @@ function App() {
     setEditProfilePopupIsOpen(true);
   }
 
+  function handleDeletePopupClick() {
+    setIsDeleteCardOpen(true);
+  }
+
+  function handleCardClick(data) {
+    setSelectedCard(data);
+  }
+
   function closeAllPopups() {
     setAddPlacePopupIsOpen(false);
     setEditAvatarPopupIsOpen(false);
     setEditProfilePopupIsOpen(false);
-  }
-
-  function handleDeleteCardClick() {
-    setIsDeleteCardOpen(true);
+    setIsDeleteCardOpen(false)
+    setSelectedCard();
   }
 
   return (
@@ -44,7 +54,8 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
-          onDeletecard={handleDeleteCardClick}
+          onDeletePopup={handleDeletePopupClick}
+          onCardClick={handleCardClick}
         />
 
         <Footer />
@@ -61,7 +72,6 @@ function App() {
             name="name"
             id="name"
             placeholder="Имя"
-            value="Жак-Ив Кусто"
             className="popup__input popup__input_type_name"
             minLength="2"
             maxLength="40"
@@ -73,7 +83,6 @@ function App() {
             name="about"
             id="description"
             placeholder="Описание"
-            value="Исследователь океана"
             className="popup__input popup__input_type_description"
             minLength="2"
             maxLength="200"
@@ -137,6 +146,10 @@ function App() {
           onClose={closeAllPopups}
         ></PopupWithForm>
 
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}
+        />
       </div>
     </div>
   );

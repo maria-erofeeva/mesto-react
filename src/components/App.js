@@ -5,7 +5,7 @@ import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
 import Card from "./Card.js";
-import { api } from '../utils/api.js'
+import { api } from "../utils/api.js";
 
 function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupIsOpen] = React.useState(false);
@@ -14,8 +14,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupIsOpen] =
     React.useState(false);
   const [isDeleteCardOpen, setIsDeleteCardOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
-  
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   function handleAddPlaceClick() {
     setAddPlacePopupIsOpen(true);
@@ -41,7 +40,7 @@ function App() {
     setAddPlacePopupIsOpen(false);
     setEditAvatarPopupIsOpen(false);
     setEditProfilePopupIsOpen(false);
-    setIsDeleteCardOpen(false)
+    setIsDeleteCardOpen(false);
     setSelectedCard(null);
   }
 
@@ -146,10 +145,7 @@ function App() {
           onClose={closeAllPopups}
         ></PopupWithForm>
 
-        <ImagePopup
-          card={selectedCard}
-          onClose={closeAllPopups}
-        />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </div>
   );

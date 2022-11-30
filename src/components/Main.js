@@ -1,17 +1,16 @@
-import React from "react";
+import {useEffect, useState} from "react";
 import { api } from "../utils/api.js";
 import Card from "./Card.js";
-import ImagePopup from "./ImagePopup.js";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("Жак-Ив Кусто");
-  const [userDescription, setUserDescription] = React.useState(
+  const [userName, setUserName] = useState("Жак-Ив Кусто");
+  const [userDescription, setUserDescription] = useState(
     "Исследователь океана"
   );
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
+  const [userAvatar, setUserAvatar] = useState("");
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const promises = [api.getUserInformation(), api.createCardsList()];
     Promise.all(promises)
       .then(([userProfileResponse, initialCardsResponse]) => {

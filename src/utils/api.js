@@ -82,6 +82,13 @@ class Api {
     }).then(this._checkResponse);
   }
 
+  changeLikeCardStatus(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
+
   /*обновление аватара пользователя*/
 
   setNewPhoto(avatar) {

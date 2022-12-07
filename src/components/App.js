@@ -6,13 +6,12 @@ import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 
 function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupIsOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupIsOpen] =
-    useState(false);
-  const [isEditProfilePopupOpen, setEditProfilePopupIsOpen] =
-    useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupIsOpen] = useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupIsOpen] = useState(false);
   const [isDeleteCardOpen, setIsDeleteCardOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -30,7 +29,14 @@ function App() {
       });
   }, []);
 
-
+  function handleUpdateUser({ newName, newDescription }) {
+    api.editProfile({ newName, newDescription })
+      .then((res) => {
+        setCurrentUser(res)
+        closeAllPopups();
+      })
+      .catch(err => console.log(`${err}`))
+  }
 
   function handleAddPlaceClick() {
     setAddPlacePopupIsOpen(true);
@@ -61,10 +67,9 @@ function App() {
   }
 
   return (
-    
-      <div className="page">
-        <div className="page__container">
-        <CurrentUserContext value={currentUser}>
+    <div className="page">
+      <div className="page__container">
+        <CurrentUserContext.Provider value={currentUser}>
           <Header />
 
           <Main
@@ -77,36 +82,11 @@ function App() {
 
           <Footer />
 
-          <PopupWithForm
-            name="edit-profile"
-            title="Редактировать профиль"
-            button="Сохранить"
+          <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-          >
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Имя"
-              className="popup__input popup__input_type_name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span className="name-error popup__input-error"></span>
-            <input
-              type="text"
-              name="about"
-              id="description"
-              placeholder="Описание"
-              className="popup__input popup__input_type_description"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span className="description-error popup__input-error"></span>
-          </PopupWithForm>
+            onUpdateUser={handleUpdateUser}
+          />
 
           <PopupWithForm
             name="add-card"
@@ -164,10 +144,9 @@ function App() {
           ></PopupWithForm>
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          </CurrentUserContext>
-        </div>
+        </CurrentUserContext.Provider>
       </div>
-    
+    </div>
   );
 }
 

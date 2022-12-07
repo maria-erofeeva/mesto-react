@@ -1,50 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { api } from "../utils/api.js";
+import React, { useContext } from "react";
 import Card from "./Card.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .createCardsList()
-      .then((cards) => setCards(cards))
-      .catch((err) => console.log(`${err}`));
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    if (isLiked) {
-      api
-        .unlikeCard(card._id)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-        .catch((err) => console.log(`${err}`));
-    } else {
-      api
-        .likeCard(card._id)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-        .catch((err) => console.log(`${err}`));
-    }
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        setCards((cards) => cards.filter((c) => c._id !== card._id));
-      })
-      .catch((err) => console.log(`${err}`));
-  }
 
   return (
     <main className="main">
@@ -81,13 +40,13 @@ function Main(props) {
       </section>
 
       <section className="gallery" aria-label="outCards">
-        {cards.map((card) => (
+        {props.cards.map((card) => (
           <Card
             key={card.id}
             card={card}
-            onCardDelete={handleCardDelete}
+            onCardDelete={props.onCardDelete}
             onCardClick={props.onCardClick}
-            onCardLike={handleCardLike}
+            onCardLike={props.onCardLike}
           />
         ))}
       </section>

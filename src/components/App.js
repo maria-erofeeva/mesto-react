@@ -21,8 +21,7 @@ function App() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    const promise = api.getUserInformation();
-    Promise.all(promise)
+    api.getUserInformation()
       .then((userProfileResponse) => {
         setCurrentUser(userProfileResponse);
       })

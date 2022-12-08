@@ -4,9 +4,11 @@ import PopupWithForm from "./PopupWithForm.js";
 function AddPlacePopup(props) {
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
+  const [buttonText, setButtonText] = useState("Создать");
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    setButtonText('Создание...');
 
     props.onAddPlace({
       newCardName: name,
@@ -14,16 +16,18 @@ function AddPlacePopup(props) {
     });
   }
 
+
   useEffect(() => {
     setName("");
     setLink("");
   }, [props.isOpen]);
 
+
   return (
     <PopupWithForm
       name="add-card"
       title="Новое место"
-      buttonText="Создать"
+      buttonText={buttonText}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}

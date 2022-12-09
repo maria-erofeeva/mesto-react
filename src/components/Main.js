@@ -42,7 +42,7 @@ function Main(props) {
       <section className="gallery" aria-label="outCards">
         {props.cards.map((card) => (
           <Card
-            key={card.id}
+            key={card._id}
             card={card}
             onCardDelete={props.onCardDelete}
             onCardClick={props.onCardClick}

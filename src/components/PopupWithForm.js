@@ -4,7 +4,7 @@ function PopupWithForm(props) {
   return (
     <div
       className={`popup popup_${props.name} ${
-        props.isOpen ? "popup_opened" : ''
+        props.isOpen ? "popup_opened" : ""
       }`}
       id={`popup-${props.name}`}
     >
@@ -15,7 +15,6 @@ function PopupWithForm(props) {
           name={props.name}
           id={`popup-${props.name}-form`}
           onSubmit={props.onSubmit}
-          noValidate
         >
           {props.children}
           <button
